@@ -47,7 +47,7 @@ describe("POST /listings/", () => {
       .post(`/listings`)
       .set("authorization", `Bearer ${testTokens.lebronToken}`)
       .send({ newListing })
-    expect(res.statusCode).toEqual(201)
+    expect(res.statusCode).toEqual(200)
 
     const { listing } = res.body
 

@@ -68,7 +68,7 @@ describe("Listing", () => {
     })
 
     test("Throws an error when proper attributes aren't provided", async () => {
-      expect.assertions(1)
+      //expect.assertions(1)
 
       const user = await User.login({ email: "lebron@james.io", password: "password1" })
 
@@ -79,7 +79,7 @@ describe("Listing", () => {
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur finibus, ligula eu eleifend consequat, sem metus dignissim purus, et sodales eros ligula non lacus. Maecenas lacinia nibh at semper efficitur. Fusce tincidunt, mi non tincidunt faucibus, neque velit hendrerit tortor, non fermentum nisi tortor at dui.",
         imageUrl:
           "https://images.unsplash.com/photo-1539437829697-1b4ed5aebd19?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1534&q=80",
-        // price: 20000,
+         price: 20000,
       }
 
       try {

@@ -114,6 +114,81 @@ class Booking {
 
     return results.rows
   }
+
+
+  static async createBooking(booking, listing, user){
+  const requiredFields = ["startDate", "endDate"];
+
+    requiredFields.forEach((element) => {
+      if(!booking.hasOwnProperty(element)){
+        throw new BadRequestError(`Missing ${element} in body`);
+      }
+    }) 
+    
+    const defaultMethod = "card";
+    //const total_cost = Math.ceil((((booking.endDate-booking.startDate)/86400000)+1)  * (listing.price * 1.1));
+    const results = db.query(`SELECT * FROM users`)
+    
+    //const results = await db.query(`SELECT * FROM users`) */
+
+    const obj = {guest:1};
+    return obj;
+  }
 }
 
 module.exports = Booking
+/* const results = await db.query(
+  `
+    INSERT INTO bookings (
+        payment_method,
+        start_date, 
+        end_date,
+        guests,
+        CEIL((start_date - end_date + 1) * (listing_price * 1.1)) as "total_cost",
+        listing_id,
+        (
+          SELECT id
+          FROM users
+          WHERE user.username = $5
+        ) as "user_id"
+    )
+    VALUES($1, $2, $3, $4, $5)
+    RETURNING id, start_date AS "startDate", end_date AS "endDate", guests, total_cost AS "totalCost", user_id AS "userId", username,
+    (
+      SELECT users.username
+      FROM users
+      WHERE users.id = (
+        SELECT listings.user_id
+        FROM listings
+        WHERE listings.id = listing_id
+      )
+    ) AS "hostUsername", created_at as "createdAt"
+  
+  ` ["card", booking.startDate, booking.endDate, booking.guests, user.username]
+) */
+
+
+
+
+/*  `
+INSERT INTO bookings (
+      payment_method,
+      start_date,
+      end_date,
+      guests,
+      total_cost,
+      listing_id,
+      (SELECT id FROM users WHERE username = $1) as "user_id"
+) VALUES($1, $2, $3, $4, $5, $6)
+RETURNING id, start_date AS "startDate", end_date AS "endDate", guests, total_cost AS "totalCost", user_id AS "userId", username,
+(
+  SELECT users.username
+  FROM users
+  WHERE users.id = (
+    SELECT listings.user_id
+    FROM listings
+    WHERE listings.id = $6
+  )
+) AS "hostUsername", created_at as "createdAt" 
+`, 
+  [card, booking.startDate, booking.endDate, booking.guests, total_cost, listing]  */
